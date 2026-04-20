@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>励志语录生成</title>
     <style>
         * {
@@ -84,12 +84,12 @@
 
 <body>
     <div class="box">
-        <div class="quote" id="text">点击按钮生成一句励志语录</div>
-        <button onclick="generate()">生成一句</button>
+        <div class="quote" id="text">监督对象</div>
+        <button onclick="generate()">请选择你的监督对象</button>
     </div>
 
     <div class="box study-box">
-        <div class="study-title">今日学习方向</div>
+        <div class="study-title">学习任务</div>
         <div class="study-result" id="studyText">准备学习...</div>
         <button class="study-btn" onclick="getStudyTask()">随机选择</button>
     </div>
@@ -97,17 +97,17 @@
     <script>
         // ==================== 励志语录 ====================
         const quotes = [
-            { text: "种一棵树最好的时间是十年前，其次是现在。", weight: 5 },
-            { text: "你只管努力，剩下的交给时间。", weight: 4 },
-            { text: "慢慢来，谁都有一个闪闪发光的过程。", weight: 4 },
-            { text: "看似不起眼的日复一日，终会在将来的某一天，突然让你看到坚持的意义。", weight: 5 },
-            { text: "不必羡慕他人，每个人都有自己的时区。", weight: 3 },
-            { text: "半山腰总是最挤的，你得去山顶看看。", weight: 5 },
-            { text: "努力的意义，就是以后的日子里，放眼望去，全都是自己喜欢的人和事。", weight: 4 },
-            { text: "你不勇敢，没人替你坚强。", weight: 2 },
-            { text: "凡是过往，皆为序章。", weight: 2 },
-            { text: "自律者出众，懒散者出局。", weight: 5 },
-        ]
+            { text: "夏萧因", weight: 1 },
+            { text: "许墨", weight: 1 },
+            { text: "顾时夜", weight: 1 },
+            { text: "易遇", weight: 1 },
+            { text: "柏源", weight: 1 },
+            { text: "夏彦", weight: 1 },
+            { text: "李泽言", weight: 1 },
+            { text: "许兔", weight: 1 },
+            { text: "Ares", weight: 1 },
+            { text: "许教授", weight: 1 },
+        ];
 
         // ==================== 学习任务 ====================
         const studyList = [
@@ -116,32 +116,32 @@
             { name: "前端项目学习", weight: 1 },
             { name: "后端学习", weight: 5 },
             { name: "AI 学习", weight: 5 },
-        ]
+        ];
 
         // 通用权重随机（修复版，不会 undefined）
         function randomByWeight(list, key) {
-            const total = list.reduce((sum, item) => sum + item.weight, 0)
-            let rand = Math.floor(Math.random() * total)
+            const total = list.reduce((sum, item) => sum + item.weight, 0);
+            let rand = Math.floor(Math.random() * total);
 
             for (let item of list) {
-                rand -= item.weight
+                rand -= item.weight;
                 if (rand < 0) {
-                    return key ? item[key] : item
+                    return key ? item[key] : item;
                 }
             }
-            return list[0][key]
+            return list[0][key];
         }
 
         // 生成语录
         function generate() {
-            const text = randomByWeight(quotes, 'text')
-            document.getElementById('text').innerText = text
+            const text = randomByWeight(quotes, "text");
+            document.getElementById("text").innerText = text;
         }
 
         // 生成学习任务
         function getStudyTask() {
-            const name = randomByWeight(studyList, 'name')
-            document.getElementById("studyText").innerText = name
+            const name = randomByWeight(studyList, "name");
+            document.getElementById("studyText").innerText = name;
         }
     </script>
 </body>
