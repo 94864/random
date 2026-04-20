@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>励志语录生成器</title>
     <style>
         * {
@@ -28,7 +29,9 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             max-width: 600px;
+            width: 100%;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .quote {
@@ -52,6 +55,30 @@
         button:active {
             background: #1a87d8;
         }
+
+        .study-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .study-title {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .study-result {
+            font-size: 22px;
+            font-weight: bold;
+            min-height: 30px;
+            margin-bottom: 20px;
+        }
+
+        .study-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 
@@ -61,8 +88,14 @@
         <button onclick="generate()">生成一句</button>
     </div>
 
+    <div class="box study-box">
+        <div class="study-title">今日学习方向</div>
+        <div class="study-result" id="studyText">准备学习...</div>
+        <button class="study-btn" onclick="getStudyTask()">随机选择</button>
+    </div>
+
     <script>
-        // 语录配置：weight 越大越容易出现
+        // ==================== 励志语录 ====================
         const quotes = [
             { text: "种一棵树最好的时间是十年前，其次是现在。", weight: 5 },
             { text: "你只管努力，剩下的交给时间。", weight: 4 },
@@ -76,21 +109,39 @@
             { text: "自律者出众，懒散者出局。", weight: 5 },
         ]
 
-        // 按权重随机
-        function randomByWeight(list) {
-            const total = list.reduce((s, i) => s + i.weight, 0)
+        // ==================== 学习任务 ====================
+        const studyList = [
+            { name: "前端面试题", weight: 5 },
+            { name: "前端JS+实战", weight: 2 },
+            { name: "前端项目学习", weight: 1 },
+            { name: "后端学习", weight: 5 },
+            { name: "AI 学习", weight: 5 },
+        ]
+
+        // 通用权重随机（修复版，不会 undefined）
+        function randomByWeight(list, key) {
+            const total = list.reduce((sum, item) => sum + item.weight, 0)
             let rand = Math.floor(Math.random() * total)
 
             for (let item of list) {
                 rand -= item.weight
-                if (rand < 0) return item.text
+                if (rand < 0) {
+                    return key ? item[key] : item
+                }
             }
+            return list[0][key]
         }
 
-        // 生成并显示
+        // 生成语录
         function generate() {
-            const text = randomByWeight(quotes)
+            const text = randomByWeight(quotes, 'text')
             document.getElementById('text').innerText = text
+        }
+
+        // 生成学习任务
+        function getStudyTask() {
+            const name = randomByWeight(studyList, 'name')
+            document.getElementById("studyText").innerText = name
         }
     </script>
 </body>
