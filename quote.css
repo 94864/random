@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: system-ui, sans-serif;
+  padding: 16px;
+  transition: background-image 0.5s ease;
+}
+
+/* 背景遮罩，让文字更清晰 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: -1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.box {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+/* 倒计时区域 */
+.countdown-box {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  padding: 20px;
+}
+
+.countdown-time {
+  font-size: 48px;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 4px;
+}
+
+.countdown-hint {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+/* 监督对象 */
+.quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #333;
+}
+
+.character-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #11998e;
+}
+
+.focus-time {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+}
+
+/* 学习任务 */
+.study-result {
+  font-size: 16px;
+  color: #666;
+  min-height: 24px;
+}
+
+/* 按钮 */
+button {
+  padding: 10px 24px;
+  font-size: 15px;
+  background: #11998e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+button:active {
+  background: #0f8579;
+}
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button.secondary {
+  background: #667eea;
+}
+
+button.secondary:active {
+  background: #5a6fd6;
+}
