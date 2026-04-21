@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>励志语录生成</title>
+    <title>加油</title>
     <style>
         * {
             margin: 0;
@@ -85,13 +85,13 @@
 <body>
     <div class="box">
         <div class="quote" id="text">监督对象</div>
-        <button onclick="generate()">请选择你的监督对象</button>
+        <button onclick="generate()">你的监督对象</button>
     </div>
 
     <div class="box study-box">
         <div class="study-title">学习任务</div>
         <div class="study-result" id="studyText">准备学习...</div>
-        <button class="study-btn" onclick="getStudyTask()">随机选择</button>
+        <button class="study-btn" onclick="getStudyTask()">当前学习内容是</button>
     </div>
 
     <script>
@@ -107,12 +107,13 @@
             { text: "许兔", weight: 1 },
             { text: "Ares", weight: 1 },
             { text: "许教授", weight: 1 },
+            { text: "夏以昼", weight: 1 },
         ];
 
         // ==================== 学习任务 ====================
         const studyList = [
             { name: "前端面试题", weight: 5 },
-            { name: "前端JS+实战", weight: 2 },
+            { name: "前端JS+收拾", weight: 2 },
             { name: "前端项目学习", weight: 1 },
             { name: "后端学习", weight: 5 },
             { name: "AI 学习", weight: 5 },
