@@ -12,7 +12,7 @@
       <!-- 倒计时放最上面 -->
       <div class="box countdown-box" id="countdownBox">
         <div class="countdown-time" id="countdownText">--:--:--</div>
-        <div class="countdown-hint">点击下方按钮开始计时</div>
+        <div class="countdown-hint" id="endTimeHint">点击下方按钮开始计时</div>
       </div>
 
       <!-- 监督对象 -->
@@ -107,8 +107,7 @@
       ];
 
       let countdownInterval = null;
-      let countdownSeconds = 0;
-      let totalSeconds = 0;
+      let endTime = null;
 
       function generateRandomTime() {
         return Math.floor(Math.random() * 3601) + 1800; // 30分钟-1.5小时
@@ -123,22 +122,11 @@
         return `${m}分钟`;
       }
 
-      function formatTime(seconds) {
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = seconds % 60;
-        return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-      }
-
-      function updateCountdown() {
-        if (countdownSeconds > 0) {
-          countdownSeconds--;
-          document.getElementById("countdownText").innerText =
-            formatTime(countdownSeconds);
-        } else {
-          clearInterval(countdownInterval);
-          document.getElementById("countdownText").innerText = "时间到！";
-        }
+      // 格式化结束时间
+      function formatEndTime(date) {
+        const h = date.getHours().toString().padStart(2, "0");
+        const m = date.getMinutes().toString().padStart(2, "0");
+        return `${h}:${m}`;
       }
 
       function randomByWeight(list) {
@@ -157,8 +145,8 @@
         }
 
         const result = randomByWeight(quotes);
-        totalSeconds = generateRandomTime();
-        countdownSeconds = totalSeconds;
+        const totalSeconds = generateRandomTime();
+        endTime = new Date(Date.now() + totalSeconds * 1000);
 
         // 设置背景图片
         document.body.style.backgroundImage = `url("${result.img}")`;
@@ -169,13 +157,30 @@
         <div class="focus-time">专注时间: ${formatTotalTime(totalSeconds)}</div>
       `;
 
-        document.getElementById("countdownText").innerText =
-          formatTime(countdownSeconds);
+        document.getElementById("countdownText").innerText = formatEndTime(endTime);
+        document.getElementById("endTimeHint").innerText = `结束于 ${formatEndTime(endTime)}`;
 
         const studyName = randomByWeight(studyList).name;
         document.getElementById("studyText").innerText = studyName;
 
-        countdownInterval = setInterval(updateCountdown, 1000);
+        countdownInterval = setInterval(updateDisplay, 1000);
+      }
+
+      function updateDisplay() {
+        const now = Date.now();
+        const remaining = Math.max(0, endTime.getTime() - now);
+
+        if (remaining > 0) {
+          const totalSecs = Math.floor(remaining / 1000);
+          const h = Math.floor(totalSecs / 3600);
+          const m = Math.floor((totalSecs % 3600) / 60);
+          const s = totalSecs % 60;
+          document.getElementById("countdownText").innerText =
+            `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+        } else {
+          clearInterval(countdownInterval);
+          document.getElementById("countdownText").innerText = "时间到！";
+        }
       }
 
       function getStudyTask() {

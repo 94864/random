@@ -130,3 +130,8 @@ button.secondary {
 button.secondary:active {
   background: #5a6fd6;
 }
+
+.end-time {
+  font-size: 14px;
+  color: #666;
+}
